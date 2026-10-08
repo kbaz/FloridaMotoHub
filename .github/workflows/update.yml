@@ -24,4 +24,4 @@ jobs:
       - name: Publish OTA Update
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas update --auto --message "Automated OTA Update" --non-interactive
+        run: eas update --channel preview --message "Targeted preview OTA update" --non-interactive
