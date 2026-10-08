@@ -4,7 +4,7 @@ import MapView, { Marker, UrlTile } from 'react-native-maps';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 // --- YOUR REMOTE CLOUD DATA LINK ---
-const REMOTE_DATA_URL = 'https://gist.githubusercontent.com/kbaz/c2886ea1a98d17afa45565332504ef98/raw/motohub.json';
+const REMOTE_DATA_URL = 'https://gist.githubusercontent.com/kbaz/c2886ea1a98d17afa45565332504ef98/raw/f5c33c11e5ee120c5aaf7bbadd3dc016993e5e07/motohub.json';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('directory');
