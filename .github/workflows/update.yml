@@ -14,7 +14,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-          cache: npm
 
       - name: Setup Expo & EAS
         uses: expo/expo-github-action@v8
@@ -23,7 +22,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Publish OTA Update
-        run: eas update --auto --message "Automated OTA Update"
+        run: eas update --auto --message "Automated OTA Update" --non-interactive
