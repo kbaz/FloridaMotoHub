@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "FloridaMotoHub",
+    "slug": "FloridaMotoHub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.bazcode317.FloridaMotoHub",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCPNzupArk8ZR8F0duc5Zp1NiLht3OmRck"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "69339ddb-a532-44b1-b59b-29a6e864b6d3"
+      }
+    }
+  }
+}
