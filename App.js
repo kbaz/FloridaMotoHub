@@ -4,86 +4,76 @@ import MapView, { Marker, UrlTile } from 'react-native-maps';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 // --- YOUR REMOTE CLOUD DATA LINK ---
-const REMOTE_DATA_URL = 'https://gist.githubusercontent.com/kbaz/c2886ea1a98d17afa45565332504ef98/raw/8f36da883add18274ced606d0d40e56b38e4732d/motohub.json'; // We will replace this in Step 2
-
-const DEFAULT_TRACKS = [
-  { id: '1', name: 'Croom Motorcycle Area', type: 'OHV / Trails', city: 'Brooksville, FL', address: '6420 La Rose Rd, Brooksville, FL 34602', lat: 28.5361, lon: -82.2355, hours: '8:00 AM - 5:00 PM Daily', social: 'https://www.fdacs.gov/Forest-Wildfire/Our-Forests/State-Forests/Withlacoochee-State-Forest/Croom-Motorcycle-Area', notes: 'Day-use & annual permits required. Sand, single-track, and pit riding.' },
-  { id: '2', name: 'Ocala National Forest OHV', type: 'OHV / Trail System', city: 'Umatilla / Salt Springs, FL', address: 'Big Scrub Trailhead, Umatilla, FL 32784', lat: 29.0722, lon: -81.7161, hours: 'Daylight Hours Daily', social: 'https://www.fs.usda.gov/recarea/florida/recarea/?recid=83535', notes: '125+ miles of marked trails (Wandering Wiregrass, Lake Delancy). USFS OHV permit required.' },
-  { id: '3', name: 'Orlando MX Park', type: 'Motocross Track', city: 'Bithlo, FL', address: '19400 E Colonial Dr, Orlando, FL 32820', lat: 28.5630, lon: -81.0960, hours: 'Wed & Sat: 9 AM - 2 PM, Sun: 9 AM - 4 PM', social: 'https://www.instagram.com/orlandomx/', notes: 'Full MX track, vet track, and peewee track.' },
-  { id: '4', name: 'Dade City Raceway', type: 'Motocross Track', city: 'Dade City, FL', address: '33508 State Rd 52, Dade City, FL 33525', lat: 28.3278, lon: -82.2030, hours: 'Thurs Practice: 4 PM - 9 PM | Select Saturdays', social: 'https://www.facebook.com/dadecitymotocross/', notes: 'Regular night race shootouts under stadium lighting.' },
-  { id: '5', name: 'Gatorback Cycle Park', type: 'Motocross Track', city: 'Alachua, FL', address: '20525 NW 46th Ave, Alachua, FL 32615', lat: 29.7460, lon: -82.5250, hours: 'Major Events & Race Weekends Only', social: 'https://www.instagram.com/gatorback_cyclepark/', notes: 'Home of the Mini O\'s. Elevation changes, natural terrain.' },
-  { id: '6', name: 'Pax Trax MX', type: 'Motocross Track', city: 'Bunnell, FL', address: '2250 N State St, Bunnell, FL 32110', lat: 29.4920, lon: -81.2610, hours: 'Fri: 3 PM - Dark, Sat/Sun: 9 AM - 3 PM', social: 'https://www.facebook.com/paxtrax.mx/', notes: 'Deep Florida sand and loamy mix.' },
-  { id: '7', name: 'WW Ranch Motocross Park', type: 'Motocross Track', city: 'Jacksonville, FL', address: '1439 Otis Rd, Jacksonville, FL 32220', lat: 30.3344, lon: -81.9069, hours: 'Check social for open ride weekends', social: 'https://www.facebook.com/WWRanchMotocross/', notes: 'Pro National caliber sand track.' },
-  { id: '8', name: '74MX at The RCK', type: 'Motocross Track', city: 'Punta Gorda, FL', address: '42400 Bermont Rd, Punta Gorda, FL 33982', lat: 26.9350, lon: -81.9560, hours: 'Sat & Sun: 9 AM - 3 PM', social: 'https://www.instagram.com/74mx1/', notes: 'Lighted night sessions on special dates.' },
-  { id: '9', name: 'Moto Bros MX', type: 'Motocross Track', city: 'Okeechobee, FL', address: '13100 US-441, Okeechobee, FL 34972', lat: 27.2430, lon: -80.8290, hours: 'Sat & Sun: 9 AM - 3 PM', social: 'https://www.instagram.com/motobros_mx/', notes: 'Fast-flowing main track and lighted turn track.' },
-  { id: '10', name: 'Bone Valley ATV Park', type: 'OHV / Trails', city: 'Mulberry, FL', address: '10427 County Rd 630 W, Mulberry, FL 33860', lat: 27.8016, lon: -81.9961, hours: '8:00 AM - 5:00 PM (Closed Tue/Wed)', social: 'https://www.polk-county.net/', notes: '200 acres with hill climbs, trails, and free-ride areas.' }
-];
-
-const DEFAULT_EVENTS = [
-  { id: '1', date: 'Oct 24 - 25, 2026', title: 'FTR Hare Scramble Rd 3', location: 'Bartow, FL', series: 'Florida Trail Riders' },
-  { id: '2', date: 'Nov 07 - 08, 2026', title: 'FTR Hare Scramble Rd 4', location: 'Ona, FL', series: 'Florida Trail Riders' },
-  { id: '3', date: 'Nov 21, 2026', title: 'Saturday Night Under The Lights', location: 'Dade City Raceway', series: 'Local MX' },
-  { id: '4', date: 'Nov 23 - 28, 2026', title: '55th Thor Winter Olympics (Mini O\'s)', location: 'Gatorback Cycle Park', series: 'National Amateur SX/MX' },
-  { id: '5', date: 'Dec 05 - 06, 2026', title: 'FTR Hare Scramble Rd 5', location: 'Seminole Tribe / Brighton, FL', series: 'Florida Trail Riders' },
-  { id: '6', date: 'Mar 07 - 08, 2027', title: 'The Wild Boar GNCC', location: 'Hog Waller (Palatka, FL)', series: 'Grand National Cross Country' }
-];
+const REMOTE_DATA_URL = 'https://gist.githubusercontent.com/kbaz/c2886ea1a98d17afa45565332504ef98/raw/8f36da883add18274ced606d0d40e56b38e4732d/motohub.json'; 
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('directory');
   const [selectedTrack, setSelectedTrack] = useState(null);
   
   // Data State
-  const [tracks, setTracks] = useState(DEFAULT_TRACKS);
-  const [events, setEvents] = useState(DEFAULT_EVENTS);
+  const [tracks, setTracks] = useState([]);
+  const [events, setEvents] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   // Weather State
   const [weatherData, setWeatherData] = useState(null);
   const [loadingWeather, setLoadingWeather] = useState(false);
-  const [radarTileUrl, setRadarTileUrl] = useState(null);
+  
+  // Radar State
+  const [radarFrames, setRadarFrames] = useState([]);
+  const [activeFrameIndex, setActiveFrameIndex] = useState(0);
+  const [showRadar, setShowRadar] = useState(true);
 
-  // --- FETCH REMOTE DATA ---
+  // --- FETCH REMOTE CLOUD DATA ---
   const fetchCloudData = async () => {
     setRefreshing(true);
     try {
-      if (REMOTE_DATA_URL.startsWith('http')) {
-        const response = await fetch(REMOTE_DATA_URL);
-        const json = await response.json();
-        setTracks(json.tracks || DEFAULT_TRACKS);
-        setEvents(json.events || DEFAULT_EVENTS);
-      } else {
-        setTracks(DEFAULT_TRACKS);
-        setEvents(DEFAULT_EVENTS);
-      }
+      const response = await fetch(REMOTE_DATA_URL);
+      const json = await response.json();
+      setTracks(json.tracks || []);
+      setEvents(json.events || []);
     } catch (error) {
-      console.log('Using local fallback data.');
-      setTracks(DEFAULT_TRACKS);
-      setEvents(DEFAULT_EVENTS);
+      console.log('Failed to fetch remote data.');
     }
     setRefreshing(false);
   };
 
   useEffect(() => {
-    fetchCloudData(); // Load on boot
+    fetchCloudData();
 
-    // Load Live Weather Radar Overlay from RainViewer API
+    // Fetch RainViewer Radar Frames (Past frames + Nowcast prediction)
     fetch('https://api.rainviewer.com/public/weather-maps.json')
       .then(res => res.json())
       .then(data => {
-        if (data && data.host && data.radar && data.radar.past) {
-          const latest = data.radar.past[data.radar.past.length - 1].path;
-          setRadarTileUrl(`${data.host}${latest}/256/{z}/{x}/{y}/2/1_1.png`); // color scheme 2, smooth 1
+        if (data && data.host && data.radar) {
+          let frames = [];
+          if (data.radar.past) frames = [...data.radar.past];
+          if (data.radar.nowcast) frames = [...frames, ...data.radar.nowcast];
+          
+          const formattedFrames = frames.map(f => {
+            const date = new Date(f.time * 1000);
+            let hours = date.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            const mins = date.getMinutes().toString().padStart(2, '0');
+            return {
+              timeText: `${hours}:${mins} ${ampm}`,
+              url: `${data.host}${f.path}/256/{z}/{x}/{y}/2/1_1.png`
+            };
+          });
+          setRadarFrames(formattedFrames);
+          setActiveFrameIndex(formattedFrames.length > 0 ? formattedFrames.length - 1 : 0);
         }
       })
       .catch(err => console.log('Radar error:', err));
   }, []);
 
-  // --- FETCH LOCAL WEATHER ---
+  // --- FETCH LOCAL TRACK WEATHER & 3-DAY FORECAST ---
   useEffect(() => {
     if (selectedTrack && selectedTrack.lat && selectedTrack.lon) {
       setLoadingWeather(true);
       setWeatherData(null);
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${selectedTrack.lat}&longitude=${selectedTrack.lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York`)
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${selectedTrack.lat}&longitude=${selectedTrack.lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York`)
         .then(res => res.json())
         .then(data => {
           if (data && data.current) setWeatherData(data);
@@ -101,29 +91,9 @@ export default function App() {
     return 'sunny';
   };
 
-  const getWeatherAlert = () => {
-    if (!weatherData || !weatherData.current || !weatherData.daily) return null;
-    const rainChance = weatherData.daily.precipitation_probability_max[0];
-    const code = weatherData.current.weather_code;
-    
-    if (code >= 95) return { text: "⚠️ ACTIVE THUNDERSTORMS", color: '#e74c3c' };
-    if (code >= 51 && code <= 67) return { text: "🌧️ CURRENTLY RAINING", color: '#3498db' };
-    if (rainChance > 40) return { text: `High Storm Risk Today (${rainChance}% Chance)`, color: '#f39c12' };
-    if (rainChance > 10) return { text: `Slight Rain Risk (${rainChance}% Chance)`, color: '#95a5a6' };
-    return { text: "Clear Conditions Expected", color: '#27ae60' };
-  };
-
   const renderDetailedWeather = () => {
-    if (loadingWeather) {
-      return (
-        <View style={styles.weatherCard}>
-          <Text style={styles.weatherLoadingText}>Fetching current radar & conditions...</Text>
-        </View>
-      );
-    }
-    if (!weatherData) return null;
-
-    const alert = getWeatherAlert();
+    if (loadingWeather) return <View style={styles.weatherCard}><Text style={styles.weatherLoadingText}>Fetching local forecasts...</Text></View>;
+    if (!weatherData || !weatherData.daily) return null;
 
     return (
       <View style={styles.weatherCard}>
@@ -131,28 +101,40 @@ export default function App() {
           <Ionicons name={getWeatherIcon(weatherData.current.weather_code)} size={42} color="#e67e22" />
           <View style={{ marginLeft: 15 }}>
             <Text style={styles.weatherMainTemp}>{Math.round(weatherData.current.temperature_2m)}°F</Text>
-            <Text style={styles.weatherFeelsLike}>Track Surface Temp</Text>
+            <Text style={styles.weatherFeelsLike}>Current Surface Temp</Text>
           </View>
         </View>
 
         <View style={styles.weatherMetricsGrid}>
           <View style={styles.metricItem}>
             <MaterialCommunityIcons name="weather-lightning-rainy" size={24} color="#3498db" />
-            <Text style={styles.metricLabel}>Rain Chance</Text>
+            <Text style={styles.metricLabel}>Rain Today</Text>
             <Text style={styles.metricValue}>{weatherData.daily.precipitation_probability_max[0]}%</Text>
           </View>
           <View style={styles.metricItem}>
             <MaterialCommunityIcons name="weather-windy" size={24} color="#1abc9c" />
-            <Text style={styles.metricLabel}>Wind</Text>
+            <Text style={styles.metricLabel}>Live Wind</Text>
             <Text style={styles.metricValue}>{Math.round(weatherData.current.wind_speed_10m)} mph</Text>
           </View>
         </View>
 
-        {alert && (
-          <View style={[styles.weatherAlert, { backgroundColor: alert.color + '15', borderColor: alert.color }]}>
-            <Text style={[styles.weatherAlertText, { color: alert.color }]}>{alert.text}</Text>
+        {/* 3-DAY FORECAST GRID */}
+        <View style={styles.forecastContainer}>
+          <Text style={styles.forecastTitle}>3-Day Prediction</Text>
+          <View style={styles.forecastRow}>
+            {[1, 2, 3].map(i => {
+              const dayDate = new Date(weatherData.daily.time[i] + 'T12:00:00Z');
+              return (
+                <View key={i} style={styles.forecastDay}>
+                  <Text style={styles.forecastDayText}>{dayDate.toLocaleDateString('en-US', {weekday: 'short'})}</Text>
+                  <Ionicons name={getWeatherIcon(weatherData.daily.weather_code[i])} size={24} color="#e67e22" style={{marginVertical: 4}} />
+                  <Text style={styles.forecastTemp}>{Math.round(weatherData.daily.temperature_2m_max[i])}°</Text>
+                  <Text style={styles.forecastRain}>{weatherData.daily.precipitation_probability_max[i]}% rain</Text>
+                </View>
+              );
+            })}
           </View>
-        )}
+        </View>
       </View>
     );
   };
@@ -173,23 +155,18 @@ export default function App() {
 
             <View style={styles.infoSection}>
               <Text style={styles.sectionHeader}>Facility Details</Text>
-              <Text style={styles.infoText}><Text style={styles.boldText}>Address:</Text> {selectedTrack?.address || 'TBD'}</Text>
-              <Text style={styles.infoText}><Text style={styles.boldText}>Hours:</Text> {selectedTrack?.hours || 'TBD'}</Text>
-              <Text style={styles.infoText}><Text style={styles.boldText}>Notes:</Text> {selectedTrack?.notes || 'No notes available.'}</Text>
+              <Text style={styles.infoText}><Text style={styles.boldText}>Address:</Text> {selectedTrack?.address}</Text>
+              <Text style={styles.infoText}><Text style={styles.boldText}>Hours:</Text> {selectedTrack?.hours}</Text>
+              <Text style={styles.infoText}><Text style={styles.boldText}>Notes:</Text> {selectedTrack?.notes}</Text>
             </View>
 
             <TouchableOpacity 
               style={styles.socialButton} 
               onPress={() => {
                 if (selectedTrack?.social) Linking.openURL(selectedTrack.social);
-                else alert('No updates link configured.');
               }}
             >
-              <MaterialCommunityIcons 
-                name={selectedTrack?.social?.includes('instagram') ? 'instagram' : selectedTrack?.social?.includes('facebook') ? 'facebook' : 'web'} 
-                size={22} 
-                color="#fff" 
-              />
+              <MaterialCommunityIcons name="web" size={22} color="#fff" />
               <Text style={styles.socialButtonText}>Official Info & Updates</Text>
             </TouchableOpacity>
           </ScrollView>
@@ -205,6 +182,7 @@ export default function App() {
         <Text style={styles.headerTitle}>FL MOTO HUB</Text>
       </View>
 
+      {/* DIRECTORY TAB */}
       {activeTab === 'directory' && (
         <View style={styles.tabContent}>
           <FlatList
@@ -227,22 +205,47 @@ export default function App() {
         </View>
       )}
 
+      {/* MAP & RADAR TAB */}
       {activeTab === 'map' && (
         <View style={styles.tabContent}>
           <MapView 
             style={styles.map}
             initialRegion={{ latitude: 28.565, longitude: -81.586, latitudeDelta: 3.5, longitudeDelta: 3.5 }}
           >
-            {radarTileUrl && (
-              <UrlTile urlTemplate={radarTileUrl} zIndex={1} opacity={0.65} />
+            {showRadar && radarFrames.length > 0 && (
+              <UrlTile urlTemplate={radarFrames[activeFrameIndex].url} zIndex={1} opacity={0.65} />
             )}
             {tracks.filter(t => t.lat && t.lon).map((track) => (
-              <Marker key={track.id} coordinate={{ latitude: track.lat, longitude: track.lon }} title={track.name} description={track.type} onCalloutPress={() => setSelectedTrack(track)} />
+              <Marker key={track.id} coordinate={{ latitude: track.lat, longitude: track.lon }} title={track.name} onCalloutPress={() => setSelectedTrack(track)} />
             ))}
           </MapView>
+          
+          {/* RADAR TIMELINE CONTROLS */}
+          <View style={styles.radarControls}>
+            <View style={styles.radarHeader}>
+              <Text style={styles.radarTitle}>Live Radar Timeline</Text>
+              <TouchableOpacity onPress={() => setShowRadar(!showRadar)}>
+                <Text style={styles.radarToggle}>{showRadar ? 'HIDE' : 'SHOW'}</Text>
+              </TouchableOpacity>
+            </View>
+            {showRadar && (
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.timelineScroll}>
+                {radarFrames.map((frame, index) => (
+                  <TouchableOpacity 
+                    key={index} 
+                    style={[styles.timeButton, activeFrameIndex === index && styles.timeButtonActive]}
+                    onPress={() => setActiveFrameIndex(index)}
+                  >
+                    <Text style={[styles.timeText, activeFrameIndex === index && styles.timeTextActive]}>{frame.timeText}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+          </View>
         </View>
       )}
 
+      {/* EVENTS TAB */}
       {activeTab === 'events' && (
         <View style={styles.tabContent}>
           <FlatList
@@ -273,8 +276,8 @@ export default function App() {
           <Text style={[styles.navText, activeTab === 'directory' && styles.navTextActive]}>Tracks</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem} onPress={() => setActiveTab('map')}>
-          <MaterialCommunityIcons name="radar" size={26} color={activeTab === 'map' ? '#e67e22' : '#7f8c8d'} />
-          <Text style={[styles.navText, activeTab === 'map' && styles.navTextActive]}>Radar</Text>
+          <MaterialCommunityIcons name="map-marker-radius" size={26} color={activeTab === 'map' ? '#e67e22' : '#7f8c8d'} />
+          <Text style={[styles.navText, activeTab === 'map' && styles.navTextActive]}>Map</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem} onPress={() => setActiveTab('events')}>
           <MaterialCommunityIcons name="calendar-check" size={26} color={activeTab === 'events' ? '#e67e22' : '#7f8c8d'} />
@@ -291,6 +294,19 @@ const styles = StyleSheet.create({
   headerTitle: { color: '#e67e22', fontSize: 22, fontWeight: '900', letterSpacing: 2, textAlign: 'center', marginTop: 15 },
   tabContent: { flex: 1 },
   map: { width: '100%', height: '100%' },
+  
+  // Radar Timeline UI
+  radarControls: { position: 'absolute', bottom: 20, left: 10, right: 10, backgroundColor: 'rgba(24,24,24,0.9)', borderRadius: 12, padding: 15, borderWidth: 1, borderColor: '#333' },
+  radarHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+  radarTitle: { color: '#fff', fontWeight: 'bold', fontSize: 14 },
+  radarToggle: { color: '#e67e22', fontWeight: 'bold', fontSize: 12, letterSpacing: 1 },
+  timelineScroll: { flexDirection: 'row' },
+  timeButton: { paddingHorizontal: 15, paddingVertical: 8, backgroundColor: '#333', borderRadius: 20, marginRight: 10 },
+  timeButtonActive: { backgroundColor: '#e67e22' },
+  timeText: { color: '#aaa', fontSize: 12, fontWeight: 'bold' },
+  timeTextActive: { color: '#fff' },
+
+  // Track Lists
   trackCard: { flexDirection: 'row', justifyContent: 'space-between', padding: 18, borderBottomWidth: 1, borderBottomColor: '#222', backgroundColor: '#161616' },
   trackCardLeft: { flex: 1 },
   trackName: { color: '#ffffff', fontSize: 17, fontWeight: '700' },
@@ -304,6 +320,8 @@ const styles = StyleSheet.create({
   eventTitle: { color: '#fff', fontSize: 16, fontWeight: '700' },
   eventLocation: { color: '#aaa', fontSize: 13, marginTop: 3 },
   eventSeries: { color: '#e67e22', fontSize: 11, marginTop: 6, fontWeight: '800', textTransform: 'uppercase' },
+  
+  // Modals & Weather
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' },
   modalContent: { backgroundColor: '#181818', height: '88%', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 22 },
   closeButton: { alignSelf: 'flex-end', marginBottom: 6 },
@@ -314,12 +332,20 @@ const styles = StyleSheet.create({
   weatherMainTemp: { color: '#fff', fontSize: 32, fontWeight: '900' },
   weatherFeelsLike: { color: '#888', fontSize: 13, marginTop: 2, fontWeight: '600', textTransform: 'uppercase' },
   weatherLoadingText: { color: '#888', fontSize: 14, textAlign: 'center', paddingVertical: 10 },
-  weatherMetricsGrid: { flexDirection: 'row', justifyContent: 'space-around', borderTopWidth: 1, borderTopColor: '#2e2e2e', paddingTop: 14 },
+  weatherMetricsGrid: { flexDirection: 'row', justifyContent: 'space-around', borderTopWidth: 1, borderTopColor: '#2e2e2e', paddingTop: 14, paddingBottom: 14 },
   metricItem: { alignItems: 'center' },
   metricLabel: { color: '#777', fontSize: 11, marginTop: 3, fontWeight: '600', textTransform: 'uppercase' },
   metricValue: { color: '#eee', fontSize: 16, fontWeight: '800', marginTop: 1 },
-  weatherAlert: { marginTop: 18, padding: 12, borderRadius: 8, borderWidth: 1, alignItems: 'center' },
-  weatherAlertText: { fontWeight: '800', fontSize: 13, letterSpacing: 1 },
+  
+  // 3-Day Forecast
+  forecastContainer: { borderTopWidth: 1, borderTopColor: '#2e2e2e', paddingTop: 14 },
+  forecastTitle: { color: '#777', fontSize: 11, fontWeight: '600', textTransform: 'uppercase', marginBottom: 10, textAlign: 'center' },
+  forecastRow: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10 },
+  forecastDay: { alignItems: 'center' },
+  forecastDayText: { color: '#ddd', fontSize: 13, fontWeight: 'bold', textTransform: 'uppercase' },
+  forecastTemp: { color: '#fff', fontSize: 14, fontWeight: '800' },
+  forecastRain: { color: '#3498db', fontSize: 11, fontWeight: 'bold', marginTop: 2 },
+
   infoSection: { backgroundColor: '#121212', padding: 16, borderRadius: 12, marginBottom: 18, borderWidth: 1, borderColor: '#222' },
   sectionHeader: { color: '#e67e22', fontSize: 14, fontWeight: '800', marginBottom: 10, textTransform: 'uppercase', letterSpacing: 1 },
   infoText: { color: '#ddd', fontSize: 14, marginBottom: 8, lineHeight: 20 },
