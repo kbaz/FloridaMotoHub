@@ -193,6 +193,10 @@ export default function App() {
               <TouchableOpacity style={styles.trackCard} onPress={() => setSelectedTrack(item)}>
                 <View style={styles.trackCardLeft}>
                   <Text style={styles.trackName}>{item.name}</Text>
+                  <View style={styles.trackHoursRow}>
+                    <Ionicons name="time-outline" size={14} color="#e67e22" />
+                    <Text style={styles.trackHours}>{item.hours}</Text>
+                  </View>
                   <Text style={styles.trackType}>{item.type}</Text>
                 </View>
                 <View style={styles.trackCardRight}>
@@ -310,6 +314,8 @@ const styles = StyleSheet.create({
   trackCard: { flexDirection: 'row', justifyContent: 'space-between', padding: 18, borderBottomWidth: 1, borderBottomColor: '#222', backgroundColor: '#161616' },
   trackCardLeft: { flex: 1 },
   trackName: { color: '#ffffff', fontSize: 17, fontWeight: '700' },
+  trackHoursRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: 6 },
+  trackHours: { color: '#ccc', fontSize: 13, lineHeight: 18, marginLeft: 5, flex: 1 },
   trackType: { color: '#888', fontSize: 13, marginTop: 4 },
   trackCity: { color: '#e67e22', fontSize: 13, marginRight: 8, fontWeight: '600' },
   trackCardRight: { flexDirection: 'row', alignItems: 'center' },
